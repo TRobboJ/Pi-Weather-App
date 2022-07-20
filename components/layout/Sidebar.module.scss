@@ -8,5 +8,8 @@
     width: 30%;
     height: 100vh;
     z-index: 1000;
-    background-color: base.$body-colour;
+    // background-color: base.$secondary-colour;
+    // border-left: 3px solid base.$primary-colour;
+    background-color: base.$primary-colour;
+    border-left: 3px solid base.$tertiary-colour;
 }

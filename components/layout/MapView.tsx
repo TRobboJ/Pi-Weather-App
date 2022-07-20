@@ -1,61 +1,92 @@
-import { MapContainer, TileLayer, useMap, Marker, Popup } from 'react-leaflet'
-import React, {useState} from 'react'
-import styles from './MapView.module.scss'
-import MapOverlay from '../map/MapOverlay'
-
-
-
+import { MapContainer, TileLayer, useMap, Marker, Popup } from "react-leaflet";
+import React, { useState } from "react";
+import styles from "./MapView.module.scss";
+import MapOverlay from "../map/MapOverlay";
+import { useInterval } from "../../utils/hooks";
+import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import {setCoords} from '../../store/settingsSlice'
 
 export default function MapView() {
-const [rainTilesTimestamp, SetRainTilesTimestamp] = useState('')
-const [userCoords, SetUserCoords] = useState({
-    lat: 0,
-    lon: 0,
-    fetched: false
-})
-const [rainTilesLoaded, SetRainTilesLoaded] = useState(false)
-const apiData = getWeatherTiles()
-if (!apiData) {return}
-apiData.then(data => {
-    SetRainTilesTimestamp(data.radar.nowcast[0].path)
-    SetRainTilesLoaded(true)
-})
+  const userCoords = useSelector(state=>state.settings.coords)
+  const awaitCoords = useSelector(state => state.settings.awaitCoords)
+  const [initRainmap, setInitRainmap] = useState({
+    timerInterval: 1000 * 5, //init at 1s then change to 15 minutes,
+    init: false,
+  });
+  const [rainTilesTimestamp, setRainTilesTimestamp] = useState("");
+  const [userCoordsLocated, setUserCoordsLocated] = useState(false);
+  const [rainTilesLoaded, setRainTilesLoaded] = useState(false);
 
-function getUserLocation() {
-    if (!navigator.geolocation) return
-    navigator.geolocation.getCurrentPosition(getUserLocationAsCoords)
-}
+  useInterval(() => {
+    const apiData = getWeatherTiles();
+    if (!apiData) {
+      return;
+    }
+    apiData.then((data) => {
+      setRainTilesTimestamp(data.radar.nowcast[0].path);
+      console.log("Reloaded rain weather map")
+      if (!rainTilesLoaded) {
+        setRainTilesLoaded(true);
+      }
+      if (!initRainmap.init) {
+        setInitRainmap({
+          init: true,
+          timerInterval: 1000 * 60 * 15, //15 minutes
+        });
+      }
+    });
+  }, initRainmap.timerInterval);
 
-function getUserLocationAsCoords(position) {
-    SetUserCoords({
-        lat: position.coords.latitude,
-        lon: position.coords.longitude,
-        fetched: true
-    })
-}
-if (!userCoords.fetched) {
-    getUserLocation()
-}
+  const dispatch = useDispatch()
 
-if (userCoords.fetched){
-  return (
-    <MapContainer className={styles.map} center={[userCoords.lat, userCoords.lon]} zoom={7} scrollWheelZoom={false}>
+  if (awaitCoords){
+  function getUserLocation() {
+    if (!navigator.geolocation) return;
+    navigator.geolocation.getCurrentPosition(getUserLocationAsCoords);
+  }
+  
+  function getUserLocationAsCoords(position) {
+    dispatch(setCoords({
+      latitude: position.coords.latitude,
+      longitude: position.coords.longitude
+    }))
+    setUserCoordsLocated(true)
+  }
+  getUserLocation()
+  }
+ 
+
+  if (userCoords.length !== 0) {
+    return (
+      <MapContainer
+        className={styles.map}
+        center={userCoords}
+        zoom={7}
+        scrollWheelZoom={true}
+      >
         <TileLayer
-            attribution='&copy; <a href="https://stadiamaps.com/">Stadia Maps</a>, &copy; <a href="https://openmaptiles.org/">OpenMapTiles</a> &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors'
-            url='https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}{r}.png'
+         
+          url="https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}{r}.png"
         />
-        {rainTilesLoaded && <TileLayer
-            attribution='&copy; <a href="https://stadiamaps.com/">Stadia Maps</a>, &copy; <a href="https://openmaptiles.org/">OpenMapTiles</a> &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors'
+        {rainTilesLoaded && (
+          <TileLayer
+            
             url={`https://tilecache.rainviewer.com/v2/radar/${rainTilesTimestamp}/256/{z}/{x}/{y}/2/1_1.png`}
-        />}
-    </MapContainer>
-  )}
+          />
+        )}
+      </MapContainer>
+    );
+  }
 }
 
 async function getWeatherTiles() {
-    const response = await fetch("https://api.rainviewer.com/public/weather-maps.json")
-    const data =  await response.json()
-    return data
+  const response = await fetch(
+    "https://api.rainviewer.com/public/weather-maps.json"
+  );
+  const data = await response.json();
+  return data;
 }
 
-
+//Add when it won't get in the way
+//attribution='&copy; <a href="https://stadiamaps.com/">Stadia Maps</a>, &copy; <a href="https://openmaptiles.org/">OpenMapTiles</a> &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors'

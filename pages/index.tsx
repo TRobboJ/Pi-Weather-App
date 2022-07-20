@@ -1,11 +1,11 @@
 import Head from "next/head";
-import dynamic from "next/dynamic";
-import { useMemo } from "react";
-import Sidebar from '../components/layout/Sidebar'
 import Layout from "../components/layout/Layout";
+
 
 const Home = () => {
   
+
+
   return (
     <>
       <Head>
@@ -28,3 +28,5 @@ const Home = () => {
 };
 
 export default Home;
+
+

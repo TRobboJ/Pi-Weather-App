@@ -1,0 +1,13 @@
+{
+    "api": {
+        "tilemap": "https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}{r}.png",
+        "rainmap": "https://api.rainviewer.com/public/weather-maps.json",
+        "sunrisesunset": "https://api.sunrise-sunset.org/json"
+    },
+
+    "coords": {
+        "gatherCoordsAutomatically": true,
+        "latitude": 0,
+        "longitude": 0
+    }
+}

@@ -6,6 +6,7 @@ body {
   margin: 0;
   font-family: base.$font-stack;
   line-height: 1.4;
+  color: base.$font-colour;
 }
 
 a {
@@ -22,3 +23,4 @@ ul {
 * {
   box-sizing: border-box;
 }
+
