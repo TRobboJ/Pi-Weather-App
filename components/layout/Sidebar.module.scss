@@ -1,0 +1,12 @@
+@use '../../styles/base.scss';
+
+
+.sidebar_container {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 30%;
+    height: 100vh;
+    z-index: 1000;
+    background-color: base.$body-colour;
+}

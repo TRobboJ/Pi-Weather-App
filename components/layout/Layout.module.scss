@@ -1,0 +1,9 @@
+@use '../../styles/base.scss';
+
+
+//This application is designed to run on a 7 inch display at 1024px * 600px
+
+.loading_status {
+    font-size: 2rem;
+    color: base.$primary-colour;
+}
