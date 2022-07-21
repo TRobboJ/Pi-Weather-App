@@ -61,7 +61,7 @@ export default function GetWeather() {
   return (
     <>
       <CurrentWeather currentWeather={currentWeatherInformation}/>
-      <Forecast />
+      {/* <Forecast /> */}
     </>
   );
 }

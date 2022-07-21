@@ -1,5 +1,3 @@
-<<<<<<< Updated upstream
-=======
 import React, { useEffect, useState } from "react";
 import styles from "./Clock.module.scss";
 import { formatHoursAndMinutes } from "../../utils/utils";
@@ -36,4 +34,3 @@ export default function Clock() {
     </div>
   );
 }
->>>>>>> Stashed changes

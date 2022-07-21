@@ -1,11 +1,9 @@
-<<<<<<< Updated upstream
-=======
 import React from 'react'
 import styles from './CurrentWeather.module.scss'
 
 export default function CurrentWeather(props) {
   const {temperature, weatherIcon, weatherIconAlt} = props.currentWeather
-
+  if (!props) return
 
   return (
     <div className={styles.current_weather}>
@@ -16,4 +14,3 @@ export default function CurrentWeather(props) {
     </div>
   )
 }
->>>>>>> Stashed changes
