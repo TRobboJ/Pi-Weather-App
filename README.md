@@ -4,4 +4,4 @@ Weather application designed to run on the Raspberry Pi 7inch screen
 
 
 WIP (Work in progress) Image:
-![WIP image of the Pi-Weather-App](https://github.com/TRobboJ/Pi-Weather-App/public/github/wip-view.jpg?raw=true)
+![WIP image of the Pi-Weather-App](https://github.com/TRobboJ/Pi-Weather-App/public/github/wip-view.png?raw=true)
