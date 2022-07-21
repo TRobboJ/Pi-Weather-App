@@ -1,0 +1,17 @@
+@use '../../styles/base.scss';
+
+.clock {
+    text-align: center;
+    padding: 1rem 0 0.2rem;
+    border-bottom: 2px solid base.$secondary-colour;
+}
+.time {
+    font-size: 5rem;
+    padding: 0;
+    
+}
+.date {
+    transform: translateY(-50%);    
+}
+
+

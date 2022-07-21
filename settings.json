@@ -1,0 +1,19 @@
+{
+    "api": {
+        "tilemap": "https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}{r}.png",
+        "rainmap": "https://api.rainviewer.com/public/weather-maps.json",
+        "sunrisesunset": "https://api.sunrise-sunset.org/json",
+        "openweather": "https://api.openweathermap.org/data/3.0/onecall",
+        "openweatherAPIkey": ""
+    },
+
+    "coords": {
+        "latitude": 35.6828387,
+        "longitude": 139.7594549
+    },
+    "timers": {
+        "rainmapInMinutes": 15,
+        "sunrisesunsetInHours": 1,
+        "openweatherInMinutes": 30
+    }
+}
