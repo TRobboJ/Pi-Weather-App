@@ -1,0 +1,22 @@
+
+.current {
+    margin: 0 auto;
+    padding: 0;
+    text-align: center;
+}
+
+.current_weather,
+.row {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  font-size: 2rem;
+  p {
+    margin: 0.5rem 0;
+  }
+}
+.weather_icon img,
+.current_weather svg {
+    height: 50px;
+    width: 50px;
+  }

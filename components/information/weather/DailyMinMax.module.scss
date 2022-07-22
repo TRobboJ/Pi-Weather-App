@@ -1,0 +1,14 @@
+.minmax {
+    margin: 0 auto;
+    padding: 0;
+    text-align: center;
+}
+.temperatures {
+    display: flex;
+    justify-content: center;
+    font-size: 1.4rem;
+    align-items: center;
+    p {
+        margin: 0.5rem 1rem;
+    }
+}
