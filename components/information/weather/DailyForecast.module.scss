@@ -1,0 +1,23 @@
+@use '../../../styles/base.scss';
+
+.forecast_daily {
+    display: flex;
+    flex-direction: column;
+    h4 {
+        font-size: 1rem;
+    }
+    p {
+        font-size: 0.8rem;
+    }
+}
+.forecast_daily:not(:first-child) {
+    border-left: 1px solid base.$tertiary-colour;
+}
+.forecast_daily:nth-child(2n) {
+    background-color: base.$secondary-colour;
+}
+
+.weather_icon img{
+    height: 40px;
+    width: 40px;
+}
