@@ -17,7 +17,7 @@
         "longitude": 139
     },
     "timers": {
-        "rainmapInMinutes": 10,
+        "rainmapInMinutes": 0.2,
         "openweatherInMinutes": 10
     }
 }

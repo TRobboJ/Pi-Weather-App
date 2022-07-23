@@ -1,8 +1,14 @@
 import { createSlice } from "@reduxjs/toolkit";
 import settings from '../settings.json'
 
+let degreeSymbol
+if (settings.general.useImperial) {
+  degreeSymbol = '°F'
+}
 
-
+if (!settings.general.useImperial) {
+  degreeSymbol = '°C'
+}
 
 const initialState = {
   useImperial: settings.general.useImperial,
@@ -10,7 +16,8 @@ const initialState = {
   getLocation: settings.general.getLocation,
   coords: [settings.coords.latitude, settings.coords.longitude],
   rainmapTimer: settings.timers.rainmapInMinutes * 1000 * 60,
-  openweatherTimer: settings.timers.openweatherInMinutes * 1000 * 60
+  openweatherTimer: settings.timers.openweatherInMinutes * 1000 * 60,
+  degreeSymbol: degreeSymbol
 }
 
 export const settingsSlice = createSlice({

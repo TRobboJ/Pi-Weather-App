@@ -8,10 +8,13 @@ WIP (Work in progress) Image:
 
 Planned:
 
-Add AM/PM or 24hr time option.
+Add AM/PM or 24hr time option.　✅
 
 
-Add Imperial units.
+Add Imperial units.　✅
 
 
-Add option for getting location automatically.
+Add option for getting location automatically.　☒ -> Currently only working for MapView, GetWeather needs to be updated to use the generated coordinates.
+
+
+Add rain weather map cycling.　☒ 

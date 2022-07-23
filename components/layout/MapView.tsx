@@ -16,21 +16,20 @@ export default function MapView() {
   
   const [userCoordsLoaded, setUserCoordsLoaded] = useState(false);
 
-  if (!userCoordsLoaded && !settings.general.getLocation || typeof window === "undefined") {
+  if (!userCoordsLoaded && !settings.general.getLocation) {
     setUserCoordsLoaded(true)
-    return
   }
   if (!userCoordsLoaded && settings.general.getLocation) {
     function getUserLocation() {
       if (!navigator.geolocation) return;
       navigator.geolocation.getCurrentPosition(getUserLocationAsCoords);
     }
+    getUserLocation()
 
     function getUserLocationAsCoords(position) {
       dispatch(setCoords([position.coords.latitude, position.coords.longitude]))
       setUserCoordsLoaded(true)
     }
-    getUserLocation()
   }
   
   useEffect(()=> {

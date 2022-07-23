@@ -1,9 +1,11 @@
 import React from 'react'
 import styles from './CurrentWeather.module.scss'
 import {WiHumidity} from 'react-icons/wi'
+import { useSelector } from 'react-redux'
 
 export default function CurrentWeather(props) {
   if (!props) return
+  const {degreeSymbol} = useSelector(state=>state.settings)
   const {temperature, weatherIcon, weatherIconAlt, humidity} = props.currentWeather
 
   return (
@@ -14,7 +16,7 @@ export default function CurrentWeather(props) {
       
       <div className={styles.row}>
       
-        <p>{temperature.toFixed(1)}°C</p>
+        <p>{temperature.toFixed(1)}{degreeSymbol}</p>
         <div className={styles.weather_icon}>
           <img src={`http://openweathermap.org/img/wn/${weatherIcon}@2x.png`} alt={weatherIconAlt} />
         </div>
