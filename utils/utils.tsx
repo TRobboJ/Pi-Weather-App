@@ -8,3 +8,7 @@ export function formatHoursAndMinutes(date) {
 export function kelvinToCelsius(kelvTemp) {
     return kelvTemp - 273.15
 }
+
+export function kelvinToFarenheit(kelvTemp) {
+    return (kelvTemp * (9/5)) - 459.67
+}

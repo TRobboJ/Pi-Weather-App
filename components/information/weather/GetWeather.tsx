@@ -4,7 +4,7 @@ import Forecast from "./Forecast";
 import { useSelector } from "react-redux";
 import settings from "../../../settings.json";
 import { useInterval } from "../../../utils/hooks";
-import { kelvinToCelsius } from "../../../utils/utils";
+import { kelvinToCelsius, kelvinToFarenheit } from "../../../utils/utils";
 import SunriseSunset from "./SunriseSunset";
 import DailyMinMax from "./DailyMinMax";
 import styles from "./GetWeather.module.scss";
