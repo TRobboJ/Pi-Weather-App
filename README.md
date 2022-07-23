@@ -7,6 +7,8 @@ Weather application created using Next.js and Typescript. Built using Leaflet an
 You are free to use the code here for your own personal use. **Please be aware that this requires an OpenWeather One Call API 3.0 key**. Key is available [here](https://openweathermap.org/api)
 
 
+User settings are defined in the *settings.json* file. (You will also need to paste your API key)
+
 
 
 
