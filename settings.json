@@ -1,8 +1,8 @@
 {
     "general": {
         "useImperial": false,
-        "useAMPM": false,
-        "getLocation": false
+        "useAMPM": true,
+        "getLocation": true
     },
 
     "api": {
@@ -13,8 +13,8 @@
     },
 
     "coords": {
-        "latitude": 35.6828387,
-        "longitude": 139.7594549
+        "latitude": 35,
+        "longitude": 139
     },
     "timers": {
         "rainmapInMinutes": 10,

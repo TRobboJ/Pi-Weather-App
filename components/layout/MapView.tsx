@@ -3,13 +3,36 @@ import React, { useEffect, useState } from "react";
 import styles from "./MapView.module.scss";
 import { useInterval } from "../../utils/hooks";
 import { useSelector } from "react-redux";
+import { setCoords } from "../../store/settingsSlice";
+import { useDispatch } from "react-redux";
+import settings from '../../settings.json'
 
 export default function MapView() {
+  const dispatch = useDispatch()
   const userCoords = useSelector(state=>state.settings.coords)
   const rainmapTimer = useSelector(state=>state.settings.rainmapTimer)
   const [rainTilesTimestamp, setRainTilesTimestamp] = useState("");
   const [rainTilesLoaded, setRainTilesLoaded] = useState(false);
+  
+  const [userCoordsLoaded, setUserCoordsLoaded] = useState(false);
 
+  if (!userCoordsLoaded && !settings.general.getLocation || typeof window === "undefined") {
+    setUserCoordsLoaded(true)
+    return
+  }
+  if (!userCoordsLoaded && settings.general.getLocation) {
+    function getUserLocation() {
+      if (!navigator.geolocation) return;
+      navigator.geolocation.getCurrentPosition(getUserLocationAsCoords);
+    }
+
+    function getUserLocationAsCoords(position) {
+      dispatch(setCoords([position.coords.latitude, position.coords.longitude]))
+      setUserCoordsLoaded(true)
+    }
+    getUserLocation()
+  }
+  
   useEffect(()=> {
     const apiData = getWeatherTiles();
     if (!apiData) {

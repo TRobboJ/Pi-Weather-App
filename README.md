@@ -9,5 +9,9 @@ WIP (Work in progress) Image:
 Planned:
 
 Add AM/PM or 24hr time option.
+
+
 Add Imperial units.
+
+
 Add option for getting location automatically.

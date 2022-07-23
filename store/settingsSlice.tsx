@@ -1,23 +1,30 @@
 import { createSlice } from "@reduxjs/toolkit";
 import settings from '../settings.json'
 
+
+
+
 const initialState = {
-    coords: [settings.coords.latitude, settings.coords.longitude],
-    rainmapTimer: settings.timers.rainmapInMinutes * 1000 * 60,
-    sunriseSunsetTimer: settings.timers.sunrisesunsetInHours * 1000 * 60 * 60,
-    openweatherTimer: settings.timers.openweatherInMinutes * 1000 * 60
+  useImperial: settings.general.useImperial,
+  useAMPM: settings.general.useAMPM,
+  getLocation: settings.general.getLocation,
+  coords: [settings.coords.latitude, settings.coords.longitude],
+  rainmapTimer: settings.timers.rainmapInMinutes * 1000 * 60,
+  openweatherTimer: settings.timers.openweatherInMinutes * 1000 * 60
 }
 
 export const settingsSlice = createSlice({
   name: "settings",
   initialState: initialState,
   reducers: {
-    printCoords: (state) => {
-        console.log(state.coords)
+    setCoords: (state, action) => {
+      const lat = action.payload[0]
+      const lon = action.payload[1]
+      state.coords = [lat, lon]
     }
   },
 });
 
-export const {printCoords} = settingsSlice.actions;
+export const { setCoords } = settingsSlice.actions;
 
 export default settingsSlice.reducer;

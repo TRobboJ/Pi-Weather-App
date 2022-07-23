@@ -10,7 +10,7 @@ import DailyMinMax from "./DailyMinMax";
 import styles from "./GetWeather.module.scss";
 
 export default function GetWeather() {
-  const weatherTimer = useSelector((state) => state.settings.openweatherTimer);
+  const {openweatherTimer, useImperial} = useSelector((state) => state.settings);
   const [isLoaded, setIsLoaded] = useState(false);
   const [currentWeather, setCurrentWeather] = useState({
     temperature: 0,
@@ -53,17 +53,16 @@ export default function GetWeather() {
   //useInterval reloads the data at set intervals, the interval is editable in the settings.json file
   useInterval(() => {
     const apiData = getWeatherData();
-    setIsLoaded(false);
     apiData.then((data) => {
       updateWeatherDataStates(data);
     });
-  }, weatherTimer);
+  }, openweatherTimer);
 
   function updateWeatherDataStates(data) {
     console.log(data)
-    const currentTemp = kelvinToCelsius(data.current.temp);
-    const minTemp = kelvinToCelsius(data.daily[0].temp.min);
-    const maxTemp = kelvinToCelsius(data.daily[0].temp.max);
+    const currentTemp = useImperial ? kelvinToFarenheit(data.current.temp) : kelvinToCelsius(data.current.temp);
+    const minTemp = useImperial ? kelvinToFarenheit(data.daily[0].temp.min) : kelvinToCelsius(data.daily[0].temp.min);
+    const maxTemp = useImperial ? kelvinToFarenheit(data.daily[0].temp.max) : kelvinToCelsius(data.daily[0].temp.max);
 
     setCurrentWeather({
       temperature: currentTemp,
