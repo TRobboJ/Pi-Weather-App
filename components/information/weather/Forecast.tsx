@@ -7,7 +7,7 @@ import { useSelector } from 'react-redux';
 export default function Forecast(props) {
   const {useImperial} = useSelector(state=>state.settings)
   const renderForecast = props.dailyForecast.map((day, i) => {
-    if (i === 0) return // I only want to get 7 days
+    if (i === 0) return // dailyForecast is an array of 8 days, including today. I skip today and return the next 7 days
     const dayOfTheWeek = getDayOfTheWeek(i)
     const temp = useImperial ? kelvinToFarenheit(day.temp.day): kelvinToCelsius(day.temp.day)
     const weatherDescription = day.weather[0].description
@@ -18,8 +18,8 @@ export default function Forecast(props) {
   function getDayOfTheWeek(dayOfWeekIndex: number) {
     const today = new Date().getDay()
     let dayOfTheWeek = today + (dayOfWeekIndex)
-    if (dayOfTheWeek >= 6) dayOfTheWeek -= 7
-    return dayOfTheWeek
+    if (dayOfTheWeek > 6) dayOfTheWeek -= 7
+    return dayOfTheWeek // returns an array index between 0-6 (Sun-Sat)
   }
   return (
     <div className={styles.forecast}>

@@ -10,8 +10,9 @@ import DailyMinMax from "./DailyMinMax";
 import styles from "./GetWeather.module.scss";
 
 export default function GetWeather() {
-  const {openweatherTimer, useImperial} = useSelector((state) => state.settings);
+  const { openweatherTimer, useImperial, getLocation } = useSelector((state) => state.settings);
   const [isLoaded, setIsLoaded] = useState(false);
+  const [updatedCoords, setUpdatedCoords] = useState(false)
   const [currentWeather, setCurrentWeather] = useState({
     temperature: 0,
     weatherIcon: "",
@@ -50,16 +51,33 @@ export default function GetWeather() {
       updateWeatherDataStates(data);
     });
   }, []);
+  let timer;
+  if (!getLocation) {
+    timer = openweatherTimer
+  }
+  if (!updatedCoords && getLocation) {
+    timer = 1000 * 3 // short delay to ensure coords are loaded by geolocation before gathering weather data
+  }
+  if (updatedCoords && getLocation) {
+    timer = openweatherTimer
+  }
+
   //useInterval reloads the data at set intervals, the interval is editable in the settings.json file
   useInterval(() => {
     const apiData = getWeatherData();
     apiData.then((data) => {
       updateWeatherDataStates(data);
+      console.log(userCoords)
+      if (!updatedCoords && getLocation) {
+
+        setUpdatedCoords(true)
+      }
     });
-  }, openweatherTimer);
+  }, timer);
+
 
   function updateWeatherDataStates(data) {
-    console.log(data)
+    console.log(data) //debugging purposes
     const currentTemp = useImperial ? kelvinToFarenheit(data.current.temp) : kelvinToCelsius(data.current.temp);
     const minTemp = useImperial ? kelvinToFarenheit(data.daily[0].temp.min) : kelvinToCelsius(data.daily[0].temp.min);
     const maxTemp = useImperial ? kelvinToFarenheit(data.daily[0].temp.max) : kelvinToCelsius(data.daily[0].temp.max);
@@ -84,7 +102,7 @@ export default function GetWeather() {
       setIsLoaded(true);
     }
   }
-  if (!isLoaded) {
+  if (!isLoaded || (getLocation && !updatedCoords)) {
     return <p className={styles.notification}>Fetching weather data...</p>;
   }
 
@@ -95,7 +113,7 @@ export default function GetWeather() {
 
         <CurrentWeather currentWeather={currentWeather} />
         <DailyMinMax todaysMinMax={todaysMinMax} />
-        <Forecast dailyForecast={dailyForecast}/>
+        <Forecast dailyForecast={dailyForecast} />
       </>
     );
   }
