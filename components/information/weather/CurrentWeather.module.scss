@@ -14,9 +14,15 @@
   p {
     margin: 0.5rem 0;
   }
+  span {
+    align-self: start;
+    margin-top: 0.9rem;
+    font-size: 1.2rem;
+  }
 }
 .weather_icon img,
 .current_weather svg {
-    height: 50px;
-    width: 50px;
+    height: 55px;
+    width: 55px;
   }
+

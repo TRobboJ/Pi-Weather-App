@@ -3,9 +3,10 @@ import styles from "./SunriseSunset.module.scss";
 import { FiSunrise, FiSunset } from "react-icons/fi";
 import { formatHoursAndMinutes, returnAMPMString } from "../../../utils/utils";
 import { useSelector } from "react-redux";
+import type { RootState } from '../../../store/store'
 
-export default function SunriseSunset(props) {
-  const { useAMPM } = useSelector(state => state.settings)
+export default function SunriseSunset(props: any) {
+  const { useAMPM } = useSelector((state: RootState) => state.settings)
   
   if (props.sunriseSunset.sunrise !== "" && props.sunriseSunset.sunset !== "") {
     const sunrise = new Date(props.sunriseSunset.sunrise * 1000);
@@ -42,5 +43,8 @@ export default function SunriseSunset(props) {
         </div>
       </div>
     );
+  }
+  else {
+    return <></>
   }
 }

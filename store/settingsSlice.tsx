@@ -1,7 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
 import settings from '../settings.json'
+import {SettingsState} from '../utils/interfaces'
 
-let degreeSymbol
+
+
+let degreeSymbol = ''
 if (settings.general.useImperial) {
   degreeSymbol = '°F'
 }
@@ -10,7 +13,7 @@ if (!settings.general.useImperial) {
   degreeSymbol = '°C'
 }
 
-const initialState = {
+const initialState: SettingsState = {
   useImperial: settings.general.useImperial,
   useAMPM: settings.general.useAMPM,
   getLocation: settings.general.getLocation,

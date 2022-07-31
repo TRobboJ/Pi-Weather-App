@@ -1,4 +1,4 @@
-export function formatHoursAndMinutes(date) {
+export function formatHoursAndMinutes(date: Date) {
     return {
         hours: date.getHours(),
         minutes: (date.getMinutes() < 10 ? '0' : '') + date.getMinutes()

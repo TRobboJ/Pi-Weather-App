@@ -5,10 +5,19 @@
 }
 .temperatures {
     display: flex;
-    justify-content: center;
+    justify-content: space-around;
     font-size: 1.4rem;
     align-items: center;
-    p {
-        margin: 0.5rem 1rem;
+    div {
+        display: flex;
+        align-items: center;
     }
+    p {
+        margin: 0.5rem 0 0.5rem 0.3rem;
+    }
+    span {
+        align-self: start;
+        margin: 0.7rem 0;
+        font-size: 1rem;
+      }
 }

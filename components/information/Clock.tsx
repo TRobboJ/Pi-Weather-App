@@ -2,10 +2,11 @@ import React, { useEffect, useState } from "react";
 import styles from "./Clock.module.scss";
 import { formatHoursAndMinutes, returnAMPMString } from "../../utils/utils";
 import { useSelector } from "react-redux";
+import type { RootState } from '../../store/store'
 
 
 export default function Clock() {
-  const { useAMPM, useImperial } = useSelector(state => state.settings)
+  const { useAMPM, useImperial } = useSelector((state: RootState) => state.settings)
   const [date, setDate] = useState(new Date());
 
   useEffect(() => {
@@ -42,7 +43,7 @@ export default function Clock() {
     year: "numeric",
     month: "long",
     day: "numeric",
-  };
+  } as const;
   const dateFormatted = date.toLocaleDateString(locale, dateOptions);
 
   return (

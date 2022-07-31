@@ -1,8 +1,7 @@
 import React from "react";
 import styles from "./DailyForecast.module.scss";
 
-export default function DailyForecast(props) {
-  if (!props) return;
+export default function DailyForecast(props: any) {
   const { temperature, weatherIcon, weatherDescription, dayOfTheWeek } = props;
   const arrayOfWeekdays = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 

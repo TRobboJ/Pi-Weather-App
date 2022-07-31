@@ -8,9 +8,10 @@ import { kelvinToCelsius, kelvinToFarenheit } from "../../../utils/utils";
 import SunriseSunset from "./SunriseSunset";
 import DailyMinMax from "./DailyMinMax";
 import styles from "./GetWeather.module.scss";
+import type { RootState } from '../../../store/store'
 
 export default function GetWeather() {
-  const { openweatherTimer, useImperial, getLocation } = useSelector((state) => state.settings);
+  const { openweatherTimer, useImperial, getLocation } = useSelector((state: RootState) => state.settings);
   const [isLoaded, setIsLoaded] = useState(false);
   const [updatedCoords, setUpdatedCoords] = useState(false)
   const [currentWeather, setCurrentWeather] = useState({
@@ -35,7 +36,7 @@ export default function GetWeather() {
   const openWeatherAPIKey = process.env.NEXT_PUBLIC_OPENWEATHERAPIKEY
     ? process.env.NEXT_PUBLIC_OPENWEATHERAPIKEY
     : settings.api.openweatherAPIkey;
-  const userCoords = useSelector((state) => state.settings.coords);
+  const userCoords = useSelector((state: RootState) => state.settings.coords);
   const formattedWeatherAPIKey = `${openWeatherAPI}?lat=${userCoords[0]}&lon=${userCoords[1]}&appid=${openWeatherAPIKey}`;
 
   async function getWeatherData() {
@@ -76,7 +77,7 @@ export default function GetWeather() {
   }, timer);
 
 
-  function updateWeatherDataStates(data) {
+  function updateWeatherDataStates(data: any) {
     console.log(data) //debugging purposes
     const currentTemp = useImperial ? kelvinToFarenheit(data.current.temp) : kelvinToCelsius(data.current.temp);
     const minTemp = useImperial ? kelvinToFarenheit(data.daily[0].temp.min) : kelvinToCelsius(data.daily[0].temp.min);
@@ -109,12 +110,14 @@ export default function GetWeather() {
   if (isLoaded) {
     return (
       <>
-        <SunriseSunset sunriseSunset={sunriseSunset} />
-
         <CurrentWeather currentWeather={currentWeather} />
+        <SunriseSunset sunriseSunset={sunriseSunset} />
         <DailyMinMax todaysMinMax={todaysMinMax} />
         <Forecast dailyForecast={dailyForecast} />
       </>
     );
+  }
+  else {
+    return <></>
   }
 }

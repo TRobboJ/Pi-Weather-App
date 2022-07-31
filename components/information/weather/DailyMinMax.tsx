@@ -2,21 +2,23 @@ import React from 'react'
 import styles from './DailyMinMax.module.scss'
 import {FaTemperatureLow, FaTemperatureHigh} from 'react-icons/fa'
 import { useSelector } from 'react-redux'
+import type { RootState } from '../../../store/store'
 
-export default function DailyMinMax(props) {
+export default function DailyMinMax(props: any) {
 
-    if (!props) return
-    const {degreeSymbol} = useSelector(state=>state.settings)
+    const {degreeSymbol} = useSelector((state: RootState)=>state.settings)
     const {min, max} = props.todaysMinMax
   return (
     <>
-    <h3 className={styles.minmax}>Lows/Highs</h3>
     <div className={styles.temperatures}>
-      
+        <div>
         <FaTemperatureLow />
-        <p>{min.toFixed(1)}{degreeSymbol}</p>
+        <p>{min.toFixed(1)}</p><span>{degreeSymbol}</span>
+        </div>
+        <div>
         <FaTemperatureHigh />
-        <p>{max.toFixed(1)}{degreeSymbol}</p>
+        <p>{max.toFixed(1)}</p><span>{degreeSymbol}</span>
+        </div>
     </div>
     </>
   )

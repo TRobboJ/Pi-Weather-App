@@ -6,11 +6,12 @@ import { useSelector } from "react-redux";
 import { setCoords } from "../../store/settingsSlice";
 import { useDispatch } from "react-redux";
 import settings from '../../settings.json'
+import type { RootState } from '../../store/store'
 
 export default function MapView() {
   const dispatch = useDispatch()
-  const userCoords = useSelector(state=>state.settings.coords)
-  const rainmapTimer = useSelector(state=>state.settings.rainmapTimer)
+  const userCoords = useSelector((state: RootState)=>state.settings.coords)
+  const rainmapTimer = useSelector((state: RootState)=>state.settings.rainmapTimer)
   const [rainTilesTimestamp, setRainTilesTimestamp] = useState("");
   const [rainTilesLoaded, setRainTilesLoaded] = useState(false);
   
@@ -26,7 +27,7 @@ export default function MapView() {
     }
     getUserLocation()
 
-    function getUserLocationAsCoords(position) {
+    function getUserLocationAsCoords(position: any) {
       dispatch(setCoords([position.coords.latitude, position.coords.longitude]))
       setUserCoordsLoaded(true)
     }
